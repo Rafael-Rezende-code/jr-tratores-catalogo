@@ -8,7 +8,7 @@ export default function Header() {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 border-b border-gray-100">
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 h-16">
-          <Link href="/" className="flex items-center">
+          <Link href="/">
             <img 
               src="/images/Logo JR.png" 
               alt="JR Tratores Logo" 
