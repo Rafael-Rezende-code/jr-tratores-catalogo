@@ -1,4 +1,10 @@
-'use client';
+This folder isn't linked to a site yet
+? What would you like to do? (Use arrow keys)
+> Link this directory to an existing site
+  +  Create & configure a new site'use client';
+
+
+
 
 import { useEffect, useState } from 'react';
 

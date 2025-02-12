@@ -64,8 +64,11 @@ export default function Home() {
         <div className="max-w-7xl mx-auto">
           <div className="flex justify-between items-center px-4 sm:px-6 lg:px-8 h-16">
             <div className="flex items-center space-x-3">
-              <Tractor className="h-7 w-7 sm:h-8 sm:w-8 text-[#2C5F15]" />
-              <h1 className="text-lg sm:text-xl font-bold text-gray-900">JR Tratores</h1>
+              <img 
+                src="/images/Logo JR.png" 
+                alt="JR Tratores Logo" 
+                className="h-12 w-auto"
+              />
             </div>
             <Link href="/admin">
               <Button className="bg-[#2C5F15] text-white hover:bg-[#1C3F0D] transition-colors text-sm sm:text-base px-3 sm:px-4 py-1.5 sm:py-2">
