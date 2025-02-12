@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import { Toaster } from '@/components/ui/toaster'
 import PWAPrompt from '@/components/PWAPrompt'
+import Header from '@/components/Header'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -32,6 +33,7 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       </head>
       <body className={inter.className}>
+        <Header />
         {children}
         <Toaster />
         <PWAPrompt />
