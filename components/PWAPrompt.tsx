@@ -1,10 +1,4 @@
-This folder isn't linked to a site yet
-? What would you like to do? (Use arrow keys)
-> Link this directory to an existing site
-  +  Create & configure a new site'use client';
-
-
-
+'use client';
 
 import { useEffect, useState } from 'react';
 
@@ -51,7 +45,7 @@ export default function PWAPrompt() {
         </button>
         <button
           onClick={() => setShowPrompt(false)}
-          className="flex-1 border border-gray-300 px-4 py-2 rounded-lg hover:bg-gray-50"
+          className="flex-1 bg-gray-100 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-200"
         >
           Agora não
         </button>
