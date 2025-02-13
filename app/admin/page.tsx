@@ -175,7 +175,7 @@ export default function AdminPage() {
     }
   }
 
-  async function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleMainImageChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]
     if (!file) return
 
@@ -192,7 +192,7 @@ export default function AdminPage() {
     setPreviewUrl(URL.createObjectURL(file))
   }
 
-  async function handleGalleryChange(e: React.ChangeEvent<HTMLInputElement>) {
+  async function handleGalleryImagesChange(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files || [])
     
     const validFiles = files.filter(file => file.type.startsWith('image/'))
@@ -210,12 +210,7 @@ export default function AdminPage() {
     setGalleryPreviews(prev => [...prev, ...newPreviews])
   }
 
-  async function removeGalleryPreview(index: number) {
-    setGalleryFiles(prev => prev.filter((_, i) => i !== index))
-    setGalleryPreviews(prev => prev.filter((_, i) => i !== index))
-  }
-
-  async function removeExistingImage(imageId: string) {
+  async function handleRemoveExistingImage(imageId: string) {
     try {
       const image = existingGallery.find(img => img.id === imageId)
       if (!image) return
@@ -252,6 +247,11 @@ export default function AdminPage() {
         description: "Não foi possível remover a imagem."
       })
     }
+  }
+
+  async function handleRemoveNewImage(index: number) {
+    setGalleryFiles(prev => prev.filter((_, i) => i !== index))
+    setGalleryPreviews(prev => prev.filter((_, i) => i !== index))
   }
 
   async function uploadImage(file: File): Promise<string> {
@@ -624,72 +624,125 @@ export default function AdminPage() {
                 </Label>
               </div>
 
-              <div className="space-y-4">
+              <div className="space-y-6">
                 <div>
                   <Label>Imagem Principal</Label>
-                  <div className="mt-2 flex items-center space-x-4">
-                    <Input
-                      type="file"
-                      onChange={handleImageChange}
-                      accept="image/*"
-                      className="flex-1"
-                    />
-                    {previewUrl && (
-                      <img
-                        src={previewUrl}
-                        alt="Preview"
-                        className="h-20 w-20 object-cover rounded-lg"
-                      />
-                    )}
+                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-4">
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      {previewUrl ? (
+                        <div className="relative w-full max-w-md">
+                          <img
+                            src={previewUrl}
+                            alt="Preview"
+                            className="w-full h-48 object-cover rounded-lg"
+                          />
+                          <Button
+                            type="button"
+                            onClick={() => {
+                              setImageFile(null);
+                              setPreviewUrl('');
+                            }}
+                            className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 p-1 rounded-full"
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      ) : (
+                        <>
+                          <Upload className="h-12 w-12 text-gray-400" />
+                          <div className="flex text-sm text-gray-600">
+                            <label
+                              htmlFor="main-image"
+                              className="relative cursor-pointer rounded-md font-medium text-[#1B8B45] hover:text-[#146832] focus-within:outline-none"
+                            >
+                              <span>Enviar imagem</span>
+                              <Input
+                                id="main-image"
+                                type="file"
+                                className="sr-only"
+                                onChange={handleMainImageChange}
+                                accept="image/*"
+                              />
+                            </label>
+                            <p className="pl-1">ou arraste e solte</p>
+                          </div>
+                          <p className="text-xs text-gray-500">
+                            PNG, JPG, GIF até 10MB
+                          </p>
+                        </>
+                      )}
+                    </div>
                   </div>
                 </div>
 
                 <div>
                   <Label>Imagens da Galeria</Label>
-                  <div className="mt-2">
-                    <Input
-                      type="file"
-                      onChange={handleGalleryChange}
-                      accept="image/*"
-                      multiple
-                    />
-                  </div>
-                  {(galleryPreviews.length > 0 || existingGallery.length > 0) && (
-                    <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
-                      {existingGallery.map((image, index) => (
-                        <div key={image.id} className="relative">
-                          <img
-                            src={image.image_url}
-                            alt={`Gallery ${index + 1}`}
-                            className="h-24 w-full object-cover rounded-lg"
+                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-4">
+                    <div className="flex flex-col items-center justify-center space-y-2">
+                      <Upload className="h-12 w-12 text-gray-400" />
+                      <div className="flex text-sm text-gray-600">
+                        <label
+                          htmlFor="gallery-images"
+                          className="relative cursor-pointer rounded-md font-medium text-[#1B8B45] hover:text-[#146832] focus-within:outline-none"
+                        >
+                          <span>Enviar imagens</span>
+                          <Input
+                            id="gallery-images"
+                            type="file"
+                            className="sr-only"
+                            onChange={handleGalleryImagesChange}
+                            accept="image/*"
+                            multiple
                           />
-                          <button
-                            type="button"
-                            onClick={() => removeExistingImage(image.id)}
-                            className="absolute top-1 right-1 p-1 bg-red-600 text-white rounded-full hover:bg-red-700"
-                          >
-                            <X className="h-4 w-4" />
-                          </button>
-                        </div>
-                      ))}
-                      {galleryPreviews.map((preview, index) => (
-                        <div key={index} className="relative">
-                          <img
-                            src={preview}
-                            alt={`New Gallery ${index + 1}`}
-                            className="h-24 w-full object-cover rounded-lg"
-                          />
-                          <button
-                            type="button"
-                            onClick={() => removeGalleryPreview(index)}
-                            className="absolute top-1 right-1 p-1 bg-red-600 text-white rounded-full hover:bg-red-700"
-                          >
-                            <X className="h-4 w-4" />
-                          </button>
-                        </div>
-                      ))}
+                        </label>
+                        <p className="pl-1">ou arraste e solte</p>
+                      </div>
+                      <p className="text-xs text-gray-500">
+                        PNG, JPG, GIF até 10MB
+                      </p>
                     </div>
-                  )}
+
+                    {(galleryPreviews.length > 0 || existingGallery.length > 0) && (
+                      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                        {existingGallery.map((image, index) => (
+                          <div key={image.id} className="relative group">
+                            <img
+                              src={image.image_url}
+                              alt={`Gallery ${index + 1}`}
+                              className="h-24 w-full object-cover rounded-lg"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                              <Button
+                                type="button"
+                                onClick={() => handleRemoveExistingImage(image.id)}
+                                className="bg-red-600 hover:bg-red-700 p-1 rounded-full"
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                        {galleryPreviews.map((preview, index) => (
+                          <div key={index} className="relative group">
+                            <img
+                              src={preview}
+                              alt={`New Gallery ${index + 1}`}
+                              className="h-24 w-full object-cover rounded-lg"
+                            />
+                            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
+                              <Button
+                                type="button"
+                                onClick={() => handleRemoveNewImage(index)}
+                                className="bg-red-600 hover:bg-red-700 p-1 rounded-full"
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
 
