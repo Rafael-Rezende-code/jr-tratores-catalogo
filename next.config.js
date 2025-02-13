@@ -12,6 +12,7 @@ const nextConfig = {
   },
   images: { unoptimized: true },
   trailingSlash: true,
+  target: 'server',
 };
 
 module.exports = withPWA(nextConfig);
