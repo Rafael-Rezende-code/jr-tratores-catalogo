@@ -56,7 +56,7 @@ export default function AdminPage() {
     estado: 'Novo',
     localizacao: '',
     ano: new Date().getFullYear().toString(),
-    unico_dono: false
+    single_owner: false
   })
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string>('')
@@ -350,7 +350,7 @@ export default function AdminPage() {
         estado: 'Novo',
         localizacao: '',
         ano: new Date().getFullYear().toString(),
-        unico_dono: false
+        single_owner: false
       })
       setImageFile(null)
       setPreviewUrl('')
@@ -443,7 +443,7 @@ export default function AdminPage() {
       estado: tractor.estado || 'Novo',
       localizacao: tractor.localizacao || '',
       ano: tractor.ano?.toString() || new Date().getFullYear().toString(),
-      unico_dono: tractor.unico_dono || false
+      single_owner: tractor.single_owner || false
     })
     setPreviewUrl(tractor.image_url)
     await fetchGallery(tractor.id)
@@ -662,12 +662,12 @@ export default function AdminPage() {
                 <div className="flex items-center space-x-2">
                   <Input
                     type="checkbox"
-                    id="unico_dono"
-                    checked={formData.unico_dono}
-                    onChange={(e) => setFormData({ ...formData, unico_dono: e.target.checked })}
+                    id="single_owner"
+                    checked={formData.single_owner}
+                    onChange={(e) => setFormData({ ...formData, single_owner: e.target.checked })}
                     className="rounded border-gray-300 text-[#2C5F15] focus:ring-[#2C5F15]"
                   />
-                  <Label htmlFor="unico_dono" className="text-sm font-medium text-gray-700">
+                  <Label htmlFor="single_owner" className="text-sm font-medium text-gray-700">
                     Único Dono
                   </Label>
                 </div>
@@ -792,7 +792,7 @@ export default function AdminPage() {
                           estado: 'Novo',
                           localizacao: '',
                           ano: new Date().getFullYear().toString(),
-                          unico_dono: false
+                          single_owner: false
                         })
                         setImageFile(null)
                         setPreviewUrl('')
