@@ -28,15 +28,17 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <head>
-        <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <link rel="icon" href="/icons/apple-touch-icon.png" />
         <meta name="theme-color" content="#1B8B45" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+        <link rel="manifest" href="/manifest.json" />
       </head>
       <body className={inter.className}>
         <Header />
-        {children}
         <Toaster />
+        {children}
         <PWAPrompt />
       </body>
     </html>
