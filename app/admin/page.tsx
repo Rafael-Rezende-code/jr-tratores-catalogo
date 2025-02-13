@@ -451,52 +451,33 @@ export default function AdminPage() {
 
   if (!session) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center p-4">
+      <div className="flex min-h-screen items-center justify-center p-4">
         <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <div className="flex justify-center mb-4">
-              <Tractor className="h-12 w-12 text-[#2C5F15]" />
-            </div>
-            <CardTitle className="text-2xl font-bold">Login Administrativo</CardTitle>
+          <CardHeader>
+            <CardTitle>Login</CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleLogin} className="space-y-4">
-              <div className="space-y-2">
+              <div>
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@jrtratores.com"
-                  required
-                  className="w-full"
                 />
               </div>
-              <div className="space-y-2">
+              <div>
                 <Label htmlFor="password">Senha</Label>
                 <Input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  required
-                  className="w-full"
                 />
               </div>
-              <Button 
-                type="submit" 
-                className="bg-[#1B8B45] hover:bg-[#146832] w-full"
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Entrando...
-                  </>
-                ) : (
-                  'Entrar'
-                )}
+              <Button type="submit" className="w-full bg-[#1B8B45] hover:bg-[#146832]">
+                Entrar
               </Button>
             </form>
           </CardContent>
@@ -506,387 +487,325 @@ export default function AdminPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <header className="py-6 flex justify-between items-center border-b border-gray-100">
-          <div className="flex items-center space-x-3">
-            <Tractor className="h-8 w-8 text-[#2C5F15]" />
-            <h1 className="text-2xl font-bold text-gray-900">JR Tratores - Painel Administrativo</h1>
-          </div>
-          <Button
-            onClick={handleLogout}
-            variant="outline"
-            className="text-gray-600 hover:text-gray-900"
-          >
-            <LogOut className="h-4 w-4 mr-2" />
-            Sair
-          </Button>
-        </header>
-
-        <main className="py-12">
-          <Card className="mb-8">
-            <CardHeader>
-              <CardTitle>
-                {editingTractor ? 'Editar Trator' : 'Adicionar Novo Trator'}
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="name">Nome do Trator</Label>
-                    <Input
-                      id="name"
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Ex: John Deere 5075E"
-                      required
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="price">Preço</Label>
-                    <Input
-                      id="price"
-                      type="number"
-                      value={formData.price}
-                      onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                      placeholder="150000"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="motor">Motor</Label>
-                    <Input
-                      id="motor"
-                      value={formData.motor}
-                      onChange={(e) => setFormData({ ...formData, motor: e.target.value })}
-                      placeholder="Ex: 4 cilindros"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="potencia">Potência</Label>
-                    <Input
-                      id="potencia"
-                      value={formData.potencia}
-                      onChange={(e) => setFormData({ ...formData, potencia: e.target.value })}
-                      placeholder="Ex: 75 cv"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="tracao">Tração</Label>
-                    <Select
-                      value={formData.tracao}
-                      onValueChange={(value) => setFormData({ ...formData, tracao: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione a tração" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {tracaoOptions.map((option) => (
-                          <SelectItem key={option} value={option}>
-                            {option}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-                  <div className="space-y-2">
-                    <Label htmlFor="horas_uso">Horas de Uso</Label>
-                    <Input
-                      id="horas_uso"
-                      type="number"
-                      value={formData.horas_uso}
-                      onChange={(e) => setFormData({ ...formData, horas_uso: e.target.value })}
-                      placeholder="Ex: 1000"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="estado">Estado</Label>
-                    <Select
-                      value={formData.estado}
-                      onValueChange={(value) => setFormData({ ...formData, estado: value })}
-                    >
-                      <SelectTrigger>
-                        <SelectValue placeholder="Selecione o estado" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {estadoOptions.map((option) => (
-                          <SelectItem key={option} value={option}>
-                            {option}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="localizacao">Localização</Label>
-                    <Input
-                      id="localizacao"
-                      value={formData.localizacao}
-                      onChange={(e) => setFormData({ ...formData, localizacao: e.target.value })}
-                      placeholder="Ex: São Paulo - SP"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="ano">Ano</Label>
-                    <Input
-                      id="ano"
-                      type="number"
-                      value={formData.ano}
-                      onChange={(e) => setFormData({ ...formData, ano: e.target.value })}
-                      placeholder={new Date().getFullYear().toString()}
-                      min="1900"
-                      max={new Date().getFullYear() + 1}
-                    />
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="description">Descrição</Label>
-                  <Textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    placeholder="Descreva as características do trator..."
-                    required
-                    className="h-32"
-                  />
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Input
-                    type="checkbox"
-                    id="single_owner"
-                    checked={formData.single_owner}
-                    onChange={(e) => setFormData({ ...formData, single_owner: e.target.checked })}
-                    className="rounded border-gray-300 text-[#2C5F15] focus:ring-[#2C5F15]"
-                  />
-                  <Label htmlFor="single_owner" className="text-sm font-medium text-gray-700">
-                    Único Dono
-                  </Label>
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="image">Imagem Principal</Label>
-                  <div className="flex flex-col items-center p-4 border-2 border-dashed rounded-lg">
-                    {previewUrl ? (
-                      <div className="relative w-full max-w-md aspect-video mb-4">
-                        <img
-                          src={previewUrl}
-                          alt="Preview"
-                          className="w-full h-full object-cover rounded-lg"
-                          onError={(e) => {
-                            const img = e.target as HTMLImageElement;
-                            img.src = 'https://images.unsplash.com/photo-1605338803155-8b46c2edc992?w=800';
-                          }}
-                        />
-                      </div>
-                    ) : (
-                      <div className="flex flex-col items-center justify-center py-8">
-                        <Upload className="h-12 w-12 text-gray-400 mb-2" />
-                        <p className="text-sm text-gray-500">Clique para selecionar uma imagem</p>
-                      </div>
-                    )}
-                    <Input
-                      id="image"
-                      type="file"
-                      accept="image/*"
-                      onChange={handleImageChange}
-                      className="hidden"
-                    />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      onClick={() => document.getElementById('image')?.click()}
-                    >
-                      {previewUrl ? 'Trocar Imagem' : 'Selecionar Imagem'}
-                    </Button>
-                  </div>
-                </div>
-
-                {/* Gallery Images */}
-                <div className="space-y-2">
-                  <Label htmlFor="gallery">Imagens da Galeria</Label>
-                  <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-4">
-                    {/* Existing gallery images */}
-                    {existingGallery.map((image) => (
-                      <div key={image.id} className="relative aspect-video">
-                        <img
-                          src={image.image_url}
-                          alt="Gallery preview"
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          size="icon"
-                          className="absolute top-2 right-2"
-                          onClick={() => removeExistingImage(image.id)}
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    ))}
-                    
-                    {/* New gallery previews */}
-                    {galleryPreviews.map((preview, index) => (
-                      <div key={index} className="relative aspect-video">
-                        <img
-                          src={preview}
-                          alt="Gallery preview"
-                          className="w-full h-full object-cover rounded-lg"
-                        />
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          size="icon"
-                          className="absolute top-2 right-2"
-                          onClick={() => removeGalleryPreview(index)}
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                      </div>
-                    ))}
-                    
-                    {/* Add more images button */}
-                    <button
-                      type="button"
-                      onClick={() => document.getElementById('gallery')?.click()}
-                      className="aspect-video flex flex-col items-center justify-center border-2 border-dashed rounded-lg hover:bg-gray-50 transition-colors"
-                    >
-                      <Plus className="h-8 w-8 text-gray-400 mb-2" />
-                      <span className="text-sm text-gray-500">Adicionar imagens</span>
-                    </button>
-                  </div>
-                  <Input
-                    id="gallery"
-                    type="file"
-                    accept="image/*"
-                    multiple
-                    onChange={handleGalleryChange}
-                    className="hidden"
-                  />
-                </div>
-
-                <div className="flex justify-end space-x-2">
-                  {editingTractor && (
-                    <Button
-                      type="button"
-                      className="bg-[#1B8B45] hover:bg-[#146832] w-full"
-                      onClick={() => {
-                        setEditingTractor(null)
-                        setFormData({
-                          name: '',
-                          price: '',
-                          description: '',
-                          motor: '',
-                          potencia: '',
-                          tracao: '4x4',
-                          horas_uso: '',
-                          estado: 'Novo',
-                          localizacao: '',
-                          ano: new Date().getFullYear().toString(),
-                          single_owner: false
-                        })
-                        setImageFile(null)
-                        setPreviewUrl('')
-                        setGalleryFiles([])
-                        setGalleryPreviews([])
-                        setExistingGallery([])
-                      }}
-                    >
-                      Cancelar Edição
-                    </Button>
-                  )}
-                  <Button 
-                    type="submit" 
-                    className="bg-[#1B8B45] hover:bg-[#146832] w-full"
-                    disabled={isSubmitting}
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        Salvando...
-                      </>
-                    ) : (
-                      editingTractor ? 'Atualizar Trator' : 'Adicionar Trator'
-                    )}
-                  </Button>
-                </div>
-              </form>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Tratores Cadastrados</CardTitle>
-            </CardHeader>
-            <CardContent>
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto p-4 sm:p-6 lg:p-8 max-w-6xl">
+        <Card className="mb-8">
+          <CardHeader>
+            <CardTitle>Adicionar/Editar Trator</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <form onSubmit={handleSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {loading ? (
-                  Array.from({ length: 3 }).map((_, index) => (
-                    <Card key={index} className="animate-pulse">
-                      <div className="h-48 bg-gray-200 rounded-t-lg" />
-                      <CardContent className="p-4">
-                        <div className="h-6 bg-gray-200 rounded w-3/4 mb-4" />
-                        <div className="h-4 bg-gray-200 rounded w-1/2" />
-                      </CardContent>
-                    </Card>
-                  ))
-                ) : (
-                  tractors.map((tractor) => (
-                    <Card key={tractor.id} className="overflow-hidden">
-                      <div className="relative h-48">
-                        <img
-                          src={tractor.image_url}
-                          alt={tractor.name}
-                          className="w-full h-full object-cover"
-                          onError={(e) => {
-                            const img = e.target as HTMLImageElement;
-                            img.src = 'https://images.unsplash.com/photo-1605338803155-8b46c2edc992?w=800';
-                          }}
-                        />
-                      </div>
-                      <CardContent className="p-4">
-                        <h3 className="text-lg font-semibold mb-2">{tractor.name}</h3>
-                        <p className="text-sm text-gray-600 mb-4 line-clamp-2">
-                          {tractor.description}
-                        </p>
-                        <div className="flex justify-between items-center">
-                          <span className="font-bold text-[#2C5F15]">
-                            {new Intl.NumberFormat('pt-BR', {
-                              style: 'currency',
-                              currency: 'BRL' }).format(tractor.price)}
-                          </span>
-                          <div className="flex space-x-2">
-                            <Button
-                              className="bg-[#1B8B45] hover:bg-[#146832] text-white"
-                              onClick={() => handleEdit(tractor)}
-                            >
-                              <Pencil className="h-4 w-4" />
-                            </Button>
-                            <Button
-                              className="bg-red-600 hover:bg-red-700 text-white"
-                              onClick={() => handleDelete(tractor.id)}
-                            >
-                              <Trash2 className="h-4 w-4" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))
-                )}
+                <div>
+                  <Label htmlFor="name">Nome do Trator</Label>
+                  <Input
+                    id="name"
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="price">Preço</Label>
+                  <Input
+                    id="price"
+                    type="number"
+                    value={formData.price}
+                    onChange={(e) => setFormData({ ...formData, price: e.target.value })}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="motor">Motor</Label>
+                  <Input
+                    id="motor"
+                    value={formData.motor}
+                    onChange={(e) => setFormData({ ...formData, motor: e.target.value })}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="potencia">Potência</Label>
+                  <Input
+                    id="potencia"
+                    value={formData.potencia}
+                    onChange={(e) => setFormData({ ...formData, potencia: e.target.value })}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="tracao">Tração</Label>
+                  <Select
+                    value={formData.tracao}
+                    onValueChange={(value) => setFormData({ ...formData, tracao: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione a tração" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {tracaoOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label htmlFor="horas_uso">Horas de Uso</Label>
+                  <Input
+                    id="horas_uso"
+                    type="number"
+                    value={formData.horas_uso}
+                    onChange={(e) => setFormData({ ...formData, horas_uso: e.target.value })}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="estado">Estado</Label>
+                  <Select
+                    value={formData.estado}
+                    onValueChange={(value) => setFormData({ ...formData, estado: value })}
+                  >
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o estado" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {estadoOptions.map((option) => (
+                        <SelectItem key={option} value={option}>
+                          {option}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
+                  <Label htmlFor="localizacao">Localização</Label>
+                  <Input
+                    id="localizacao"
+                    value={formData.localizacao}
+                    onChange={(e) => setFormData({ ...formData, localizacao: e.target.value })}
+                  />
+                </div>
+
+                <div>
+                  <Label htmlFor="ano">Ano</Label>
+                  <Input
+                    id="ano"
+                    type="number"
+                    value={formData.ano}
+                    onChange={(e) => setFormData({ ...formData, ano: e.target.value })}
+                  />
+                </div>
               </div>
-            </CardContent>
-          </Card>
-        </main>
+
+              <div>
+                <Label htmlFor="description">Descrição</Label>
+                <Textarea
+                  id="description"
+                  value={formData.description}
+                  onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                  rows={4}
+                />
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <Input
+                  type="checkbox"
+                  id="single_owner"
+                  checked={formData.single_owner}
+                  onChange={(e) => setFormData({ ...formData, single_owner: e.target.checked })}
+                  className="rounded border-gray-300 text-[#1B8B45] focus:ring-[#1B8B45]"
+                />
+                <Label htmlFor="single_owner">
+                  Único Dono
+                </Label>
+              </div>
+
+              <div className="space-y-4">
+                <div>
+                  <Label>Imagem Principal</Label>
+                  <div className="mt-2 flex items-center space-x-4">
+                    <Input
+                      type="file"
+                      onChange={handleImageChange}
+                      accept="image/*"
+                      className="flex-1"
+                    />
+                    {previewUrl && (
+                      <img
+                        src={previewUrl}
+                        alt="Preview"
+                        className="h-20 w-20 object-cover rounded-lg"
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <div>
+                  <Label>Imagens da Galeria</Label>
+                  <div className="mt-2">
+                    <Input
+                      type="file"
+                      onChange={handleGalleryChange}
+                      accept="image/*"
+                      multiple
+                    />
+                  </div>
+                  {(galleryPreviews.length > 0 || existingGallery.length > 0) && (
+                    <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                      {existingGallery.map((image, index) => (
+                        <div key={image.id} className="relative">
+                          <img
+                            src={image.image_url}
+                            alt={`Gallery ${index + 1}`}
+                            className="h-24 w-full object-cover rounded-lg"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeExistingImage(image.id)}
+                            className="absolute top-1 right-1 p-1 bg-red-600 text-white rounded-full hover:bg-red-700"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                      ))}
+                      {galleryPreviews.map((preview, index) => (
+                        <div key={index} className="relative">
+                          <img
+                            src={preview}
+                            alt={`New Gallery ${index + 1}`}
+                            className="h-24 w-full object-cover rounded-lg"
+                          />
+                          <button
+                            type="button"
+                            onClick={() => removeGalleryPreview(index)}
+                            className="absolute top-1 right-1 p-1 bg-red-600 text-white rounded-full hover:bg-red-700"
+                          >
+                            <X className="h-4 w-4" />
+                          </button>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                {editingTractor && (
+                  <Button
+                    type="button"
+                    className="bg-[#1B8B45] hover:bg-[#146832] flex-1"
+                    onClick={() => {
+                      setEditingTractor(null)
+                      setFormData({
+                        name: '',
+                        price: '',
+                        description: '',
+                        motor: '',
+                        potencia: '',
+                        tracao: '4x4',
+                        horas_uso: '',
+                        estado: 'Novo',
+                        localizacao: '',
+                        ano: new Date().getFullYear().toString(),
+                        single_owner: false
+                      })
+                      setImageFile(null)
+                      setPreviewUrl('')
+                      setGalleryFiles([])
+                      setGalleryPreviews([])
+                      setExistingGallery([])
+                    }}
+                  >
+                    Cancelar Edição
+                  </Button>
+                )}
+                <Button 
+                  type="submit"
+                  className="bg-[#1B8B45] hover:bg-[#146832] flex-1"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Salvando...
+                    </>
+                  ) : (
+                    <>
+                      {editingTractor ? (
+                        <>
+                          <Pencil className="mr-2 h-4 w-4" />
+                          Atualizar Trator
+                        </>
+                      ) : (
+                        <>
+                          <Plus className="mr-2 h-4 w-4" />
+                          Adicionar Trator
+                        </>
+                      )}
+                    </>
+                  )}
+                </Button>
+              </div>
+            </form>
+          </CardContent>
+        </Card>
+
+        <div className="space-y-6">
+          <div className="flex justify-between items-center">
+            <h2 className="text-2xl font-bold">Tratores Cadastrados</h2>
+            <Button
+              className="bg-[#1B8B45] hover:bg-[#146832]"
+              onClick={() => signOut()}
+            >
+              <LogOut className="mr-2 h-4 w-4" />
+              Sair
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {tractors.map((tractor) => (
+              <Card key={tractor.id}>
+                <CardContent className="p-4">
+                  <div className="relative aspect-[4/3] mb-4">
+                    <img
+                      src={tractor.image_url}
+                      alt={tractor.name}
+                      className="absolute inset-0 w-full h-full object-cover rounded-lg"
+                    />
+                  </div>
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="font-semibold">{tractor.name}</h3>
+                      <p className="text-sm text-gray-500">
+                        {new Intl.NumberFormat('pt-BR', {
+                          style: 'currency',
+                          currency: 'BRL' }).format(tractor.price)}
+                      </p>
+                    </div>
+                    <div className="flex justify-end space-x-2">
+                      <Button
+                        className="bg-[#1B8B45] hover:bg-[#146832]"
+                        onClick={() => handleEdit(tractor)}
+                      >
+                        <Pencil className="h-4 w-4" />
+                      </Button>
+                      <Button
+                        className="bg-red-600 hover:bg-red-700"
+                        onClick={() => handleDelete(tractor.id)}
+                      >
+                        <Trash2 className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   )

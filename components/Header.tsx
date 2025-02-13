@@ -16,7 +16,7 @@ export default function Header() {
             />
           </Link>
           <Link href="/admin">
-            <Button className="bg-[#2C5F15] text-white hover:bg-[#1C3F0D] transition-colors text-sm sm:text-base px-3 sm:px-4 py-1.5 sm:py-2">
+            <Button variant="default" className="bg-[#1B8B45] hover:bg-[#146832]">
               Área do Admin
             </Button>
           </Link>
