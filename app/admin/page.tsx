@@ -486,7 +486,7 @@ export default function AdminPage() {
               </div>
               <Button 
                 type="submit" 
-                className="w-full bg-[#2C5F15] hover:bg-[#1C3F0D]"
+                className="bg-[#1B8B45] hover:bg-[#146832] w-full"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? (
@@ -778,7 +778,7 @@ export default function AdminPage() {
                   {editingTractor && (
                     <Button
                       type="button"
-                      variant="outline"
+                      className="bg-[#1B8B45] hover:bg-[#146832] w-full"
                       onClick={() => {
                         setEditingTractor(null)
                         setFormData({
@@ -801,18 +801,18 @@ export default function AdminPage() {
                         setExistingGallery([])
                       }}
                     >
-                      Cancelar
+                      Cancelar Edição
                     </Button>
                   )}
                   <Button 
                     type="submit" 
-                    className="bg-[#2C5F15] hover:bg-[#1C3F0D]"
+                    className="bg-[#1B8B45] hover:bg-[#146832] w-full"
                     disabled={isSubmitting}
                   >
                     {isSubmitting ? (
                       <>
                         <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                        {editingTractor ? 'Atualizando...' : 'Adicionando...'}
+                        Salvando...
                       </>
                     ) : (
                       editingTractor ? 'Atualizar Trator' : 'Adicionar Trator'
@@ -866,15 +866,13 @@ export default function AdminPage() {
                           </span>
                           <div className="flex space-x-2">
                             <Button
-                              variant="outline"
-                              size="icon"
+                              className="bg-[#1B8B45] hover:bg-[#146832] text-white"
                               onClick={() => handleEdit(tractor)}
                             >
                               <Pencil className="h-4 w-4" />
                             </Button>
                             <Button
-                              variant="destructive"
-                              size="icon"
+                              className="bg-red-600 hover:bg-red-700 text-white"
                               onClick={() => handleDelete(tractor.id)}
                             >
                               <Trash2 className="h-4 w-4" />
