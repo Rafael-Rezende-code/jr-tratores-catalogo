@@ -8,33 +8,6 @@ const supabase = createClient<Database>(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-// This function generates all possible paths at build time
-export async function generateStaticParams() {
-  try {
-    const { data: tractors, error } = await supabase
-      .from('tractors')
-      .select('id')
-      .eq('is_available', true) // Only generate pages for available tractors
-
-    if (error) {
-      console.error('Error fetching tractors for static paths:', error)
-      return []
-    }
-
-    if (!tractors || tractors.length === 0) {
-      console.warn('No tractors found for static path generation')
-      return []
-    }
-
-    return tractors.map((tractor) => ({
-      id: tractor.id,
-    }))
-  } catch (error) {
-    console.error('Error generating static params:', error)
-    return []
-  }
-}
-
 // This function generates metadata for each page
 export async function generateMetadata({ params }: { params: { id: string } }) {
   try {
@@ -54,15 +27,19 @@ export async function generateMetadata({ params }: { params: { id: string } }) {
 
     return {
       title: `${tractor.name} | JR Tratores`,
-      description: `Confira o ${tractor.name} disponível na JR Tratores. Qualidade e confiança para o seu negócio.`,
+      description: `Confira detalhes e fotos do ${tractor.name} disponível na JR Tratores.`,
     }
   } catch (error) {
+    console.error('Error generating metadata:', error)
     return {
       title: 'JR Tratores',
-      description: 'Encontre os melhores tratores e máquinas agrícolas com a JR Tratores.',
+      description: 'Seu parceiro em máquinas agrícolas.',
     }
   }
 }
+
+// Dynamic page generation
+export const dynamic = 'force-dynamic'
 
 export default function Page() {
   return <ProductPage />
