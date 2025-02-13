@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { supabase } from "@/lib/supabase/client"
 import type { Database } from "@/lib/supabase/types"
-import { Phone } from "@/components/icons/phone"
+import { Phone } from "lucide-react"
 
 type Tractor = Database['public']['Tables']['tractors']['Row']
 
