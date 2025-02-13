@@ -127,11 +127,11 @@ export default function ProductPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Image Gallery */}
           <div className="space-y-4">
-            <div className="relative aspect-video bg-gray-100 rounded-lg overflow-hidden">
+            <div className="relative aspect-[4/3] bg-gray-100 rounded-lg overflow-hidden">
               <img
                 src={allImages[currentImageIndex]}
                 alt={tractor.name}
-                className="w-full h-full object-cover cursor-pointer"
+                className="w-full h-full object-contain cursor-pointer"
                 onClick={() => setShowLightbox(true)}
                 onError={(e) => {
                   const img = e.target as HTMLImageElement;
@@ -174,7 +174,7 @@ export default function ProductPage() {
                 {allImages.map((image, index) => (
                   <button
                     key={index}
-                    className={`aspect-video rounded-lg overflow-hidden border-2 ${
+                    className={`aspect-[4/3] rounded-lg overflow-hidden border-2 ${
                       currentImageIndex === index ? 'border-[#2C5F15]' : 'border-transparent'
                     }`}
                     onClick={() => setCurrentImageIndex(index)}
@@ -182,7 +182,7 @@ export default function ProductPage() {
                     <img
                       src={image}
                       alt={`${tractor.name} - Imagem ${index + 1}`}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain"
                       onError={(e) => {
                         const img = e.target as HTMLImageElement;
                         img.src = 'https://images.unsplash.com/photo-1605338803155-8b46c2edc992?w=800';
