@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   title: 'JR Tratores - Seu Parceiro em Máquinas Agrícolas',
   description: 'Encontre os melhores tratores e máquinas agrícolas com a JR Tratores. Qualidade e confiança para o seu negócio.',
   manifest: '/manifest.json',
-  themeColor: '#000000',
+  themeColor: '#1B8B45',
   appleWebApp: {
     capable: true,
     statusBarStyle: 'default',
@@ -31,6 +31,7 @@ export default function RootLayout({
         <link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="theme-color" content="#1B8B45" />
       </head>
       <body className={inter.className}>
         <Header />
