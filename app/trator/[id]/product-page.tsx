@@ -8,6 +8,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ChevronLeft, ChevronRight } from "lucide-react"
 import { supabase } from "@/lib/supabase/client"
 import type { Database } from "@/lib/supabase/types"
+import { Phone } from "lucide-react"
 
 type Tractor = Database['public']['Tables']['tractors']['Row']
 type GalleryImage = Database['public']['Tables']['tractor_gallery']['Row']
@@ -263,9 +264,10 @@ export default function ProductPage() {
               href={getWhatsAppLink()}
               target="_blank"
               rel="noopener noreferrer"
-              className="block"
+              className="w-full"
             >
-              <Button className="w-full bg-[#25D366] hover:bg-[#128C7E] text-white text-lg py-6">
+              <Button className="w-full bg-[#1B8B45] hover:bg-[#1B8B45]/90">
+                <Phone className="w-4 h-4 mr-2" />
                 Falar no WhatsApp
               </Button>
             </a>

@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { supabase } from "@/lib/supabase/client"
 import type { Database } from "@/lib/supabase/types"
+import { Phone } from "@/components/icons/phone"
 
 type Tractor = Database['public']['Tables']['tractors']['Row']
 
@@ -110,9 +111,10 @@ export default function Home() {
                       href={getWhatsAppLink(tractor)}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="w-full sm:w-auto"
+                      className="w-full"
                     >
-                      <Button className="w-full sm:w-auto bg-[#25D366] hover:bg-[#128C7E] text-white transition-colors">
+                      <Button className="w-full bg-[#1B8B45] hover:bg-[#1B8B45]/90">
+                        <Phone className="w-4 h-4 mr-2" />
                         Falar no WhatsApp
                       </Button>
                     </a>
