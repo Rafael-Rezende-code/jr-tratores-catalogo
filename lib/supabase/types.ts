@@ -26,6 +26,7 @@ export interface Database {
           estado: string | null
           localizacao: string | null
           ano: number | null
+          single_owner: boolean
         }
         Insert: {
           id?: string
@@ -43,6 +44,7 @@ export interface Database {
           estado?: string | null
           localizacao?: string | null
           ano?: number | null
+          single_owner?: boolean
         }
         Update: {
           id?: string
@@ -60,6 +62,7 @@ export interface Database {
           estado?: string | null
           localizacao?: string | null
           ano?: number | null
+          single_owner?: boolean
         }
       }
       tractor_gallery: {

@@ -55,7 +55,8 @@ export default function AdminPage() {
     horas_uso: '',
     estado: 'Novo',
     localizacao: '',
-    ano: new Date().getFullYear().toString()
+    ano: new Date().getFullYear().toString(),
+    unico_dono: false
   })
   const [imageFile, setImageFile] = useState<File | null>(null)
   const [previewUrl, setPreviewUrl] = useState<string>('')
@@ -348,7 +349,8 @@ export default function AdminPage() {
         horas_uso: '',
         estado: 'Novo',
         localizacao: '',
-        ano: new Date().getFullYear().toString()
+        ano: new Date().getFullYear().toString(),
+        unico_dono: false
       })
       setImageFile(null)
       setPreviewUrl('')
@@ -440,7 +442,8 @@ export default function AdminPage() {
       horas_uso: tractor.horas_uso?.toString() || '',
       estado: tractor.estado || 'Novo',
       localizacao: tractor.localizacao || '',
-      ano: tractor.ano?.toString() || new Date().getFullYear().toString()
+      ano: tractor.ano?.toString() || new Date().getFullYear().toString(),
+      unico_dono: tractor.unico_dono || false
     })
     setPreviewUrl(tractor.image_url)
     await fetchGallery(tractor.id)
@@ -656,6 +659,19 @@ export default function AdminPage() {
                   />
                 </div>
 
+                <div className="flex items-center space-x-2">
+                  <Input
+                    type="checkbox"
+                    id="unico_dono"
+                    checked={formData.unico_dono}
+                    onChange={(e) => setFormData({ ...formData, unico_dono: e.target.checked })}
+                    className="rounded border-gray-300 text-[#2C5F15] focus:ring-[#2C5F15]"
+                  />
+                  <Label htmlFor="unico_dono" className="text-sm font-medium text-gray-700">
+                    Único Dono
+                  </Label>
+                </div>
+
                 <div className="space-y-2">
                   <Label htmlFor="image">Imagem Principal</Label>
                   <div className="flex flex-col items-center p-4 border-2 border-dashed rounded-lg">
@@ -775,7 +791,8 @@ export default function AdminPage() {
                           horas_uso: '',
                           estado: 'Novo',
                           localizacao: '',
-                          ano: new Date().getFullYear().toString()
+                          ano: new Date().getFullYear().toString(),
+                          unico_dono: false
                         })
                         setImageFile(null)
                         setPreviewUrl('')

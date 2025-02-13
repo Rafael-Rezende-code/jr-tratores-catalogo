@@ -197,7 +197,14 @@ export default function ProductPage() {
           {/* Product Info */}
           <div className="space-y-6">
             <div>
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">{tractor.name}</h1>
+              <div className="flex items-center space-x-4 mb-2">
+                <h1 className="text-3xl font-bold text-gray-900">{tractor.name}</h1>
+                {tractor.single_owner && (
+                  <span className="bg-[#1B8B45] text-white px-3 py-1 rounded-md text-sm font-medium">
+                    Único Dono
+                  </span>
+                )}
+              </div>
               <p className="text-2xl font-bold text-[#2C5F15]">
                 {formatPrice(tractor.price)}
               </p>

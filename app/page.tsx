@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { supabase } from "@/lib/supabase/client"
 import type { Database } from "@/lib/supabase/types"
 import { Phone } from "lucide-react"
+import Image from "next/image"
 
 type Tractor = Database['public']['Tables']['tractors']['Row']
 
@@ -75,18 +76,26 @@ export default function Home() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
             {tractors.map((tractor) => (
-              <Card key={tractor.id} className="flex flex-col overflow-hidden bg-white shadow-lg hover:shadow-xl transition-shadow duration-300">
+              <Card key={tractor.id} className="overflow-hidden">
                 <Link href={`/trator/${tractor.id}`}>
-                  <div className="relative h-48 sm:h-56 lg:h-64">
-                    <img
+                  <div className="relative aspect-[4/3]">
+                    <Image
                       src={tractor.image_url}
                       alt={tractor.name}
-                      className="w-full h-full object-cover"
+                      fill
+                      className="object-cover"
                       onError={(e) => {
                         const img = e.target as HTMLImageElement;
                         img.src = 'https://images.unsplash.com/photo-1605338803155-8b46c2edc992?w=800';
                       }}
                     />
+                    {tractor.single_owner && (
+                      <div className="absolute top-2 right-2">
+                        <span className="bg-[#1B8B45] text-white px-2 py-1 rounded-md text-sm font-medium">
+                          Único Dono
+                        </span>
+                      </div>
+                    )}
                   </div>
                 </Link>
                 <CardContent className="flex flex-col flex-grow p-4 sm:p-6">
