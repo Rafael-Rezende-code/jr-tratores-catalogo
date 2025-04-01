@@ -17,7 +17,7 @@ import { useToast } from "@/hooks/use-toast"
 type Tractor = Database['public']['Tables']['tractors']['Row']
 type GalleryImage = Database['public']['Tables']['tractor_gallery']['Row']
 
-const WHATSAPP_NUMBER = '5535988753453'
+const WHATSAPP_NUMBER = '553597400527'
 
 const getPublicImageUrl = (fileName: string) => {
   return `https://tbrypcszuaxedvlmyrcn.supabase.co/storage/v1/object/public/images/${fileName}`;
@@ -627,14 +627,14 @@ export default function AdminPage() {
               <div className="space-y-6">
                 <div>
                   <Label>Imagem Principal</Label>
-                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-xl p-4">
+                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-4">
                     <div className="flex flex-col items-center justify-center space-y-2">
                       {previewUrl ? (
                         <div className="relative w-full max-w-md">
                           <img
                             src={previewUrl}
                             alt="Preview"
-                            className="absolute inset-0 w-full h-48 object-cover rounded-xl"
+                            className="w-full h-48 object-cover rounded-lg"
                           />
                           <Button
                             type="button"
@@ -642,7 +642,7 @@ export default function AdminPage() {
                               setImageFile(null);
                               setPreviewUrl('');
                             }}
-                            className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 p-1 rounded-xl"
+                            className="absolute top-2 right-2 bg-red-600 hover:bg-red-700 p-1 rounded-full"
                           >
                             <X className="h-4 w-4" />
                           </Button>
@@ -677,7 +677,7 @@ export default function AdminPage() {
 
                 <div>
                   <Label>Imagens da Galeria</Label>
-                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-xl p-4">
+                  <div className="mt-2 border-2 border-dashed border-gray-300 rounded-lg p-4">
                     <div className="flex flex-col items-center justify-center space-y-2">
                       <Upload className="h-12 w-12 text-gray-400" />
                       <div className="flex text-sm text-gray-600">
@@ -709,13 +709,13 @@ export default function AdminPage() {
                             <img
                               src={image.image_url}
                               alt={`Gallery ${index + 1}`}
-                              className="h-24 w-full object-cover rounded-xl"
+                              className="h-24 w-full object-cover rounded-lg"
                             />
-                            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                               <Button
                                 type="button"
                                 onClick={() => handleRemoveExistingImage(image.id)}
-                                className="bg-red-600 hover:bg-red-700 p-1 rounded-xl"
+                                className="bg-red-600 hover:bg-red-700 p-1 rounded-full"
                               >
                                 <X className="h-4 w-4" />
                               </Button>
@@ -727,13 +727,13 @@ export default function AdminPage() {
                             <img
                               src={preview}
                               alt={`New Gallery ${index + 1}`}
-                              className="h-24 w-full object-cover rounded-xl"
+                              className="h-24 w-full object-cover rounded-lg"
                             />
-                            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                            <div className="absolute inset-0 bg-black bg-opacity-50 opacity-0 group-hover:opacity-100 transition-opacity rounded-lg flex items-center justify-center">
                               <Button
                                 type="button"
                                 onClick={() => handleRemoveNewImage(index)}
-                                className="bg-red-600 hover:bg-red-700 p-1 rounded-xl"
+                                className="bg-red-600 hover:bg-red-700 p-1 rounded-full"
                               >
                                 <X className="h-4 w-4" />
                               </Button>
@@ -827,7 +827,7 @@ export default function AdminPage() {
                     <img
                       src={tractor.image_url}
                       alt={tractor.name}
-                      className="absolute inset-0 w-full h-full object-cover rounded-xl"
+                      className="absolute inset-0 w-full h-full object-cover rounded-lg"
                     />
                   </div>
                   <div className="space-y-4">
